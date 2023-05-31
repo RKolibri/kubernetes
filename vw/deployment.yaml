@@ -1,0 +1,33 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: vw
+  namespace: default
+  labels:
+    app: vw
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: vw
+  template:
+    metadata:
+      labels:
+        app: vw
+    spec:
+      containers:
+      - name: vw
+        image: vaultwarden/server:latest
+        volumeMounts:
+        - mountPath: /data
+          name: vw-data    
+      volumes:
+        - name: vw-data  
+          nfs:
+            path: /mnt/RUST/K3S/vw
+            server: 10.10.0.105

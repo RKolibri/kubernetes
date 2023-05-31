@@ -1,0 +1,39 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: bazarr
+  namespace: default
+  labels:
+    app: bazarr
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: bazarr
+  template:
+    metadata:
+      labels:
+        app: bazarr
+    spec:
+      containers:
+      - name: bazarr
+        image: lscr.io/linuxserver/bazarr:latest
+        volumeMounts:
+        - mountPath: /config
+          name: config
+        - mountPath: /data
+          name: data        
+      volumes:
+        - name: config
+          nfs:
+            path: /mnt/RUST/K3S/mediastack/appdata/bazzar
+            server: 10.10.0.105
+        - name: data
+          nfs:
+            path: /mnt/RUST/K3S/data
+            server: 10.10.0.105        

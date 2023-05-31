@@ -1,0 +1,10 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+    name: my-traefik-themepark
+    namespace: traefik
+spec:
+    plugin:
+        traefik-themepark:
+            app: sonarr
+            theme: aquamarine

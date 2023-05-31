@@ -1,0 +1,39 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sonarr
+  namespace: default
+  labels:
+    app: sonarr
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: sonarr
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      containers:
+      - name: sonarr
+        image: lscr.io/linuxserver/sonarr:latest
+        volumeMounts:
+        - mountPath: /config
+          name: config
+        - mountPath: /data
+          name: data        
+      volumes:
+        - name: config
+          nfs:
+            path: /mnt/RUST/K3S/mediastack/appdata/sonarr
+            server: 10.10.0.105
+        - name: data
+          nfs:
+            path: /mnt/RUST/K3S/data
+            server: 10.10.0.105        

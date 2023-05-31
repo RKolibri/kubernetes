@@ -1,0 +1,33 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: pdfmerger
+  namespace: default
+  labels:
+    app: pdfmerger
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: pdfmerger
+  template:
+    metadata:
+      labels:
+        app: pdfmerger
+    spec:
+      containers:
+      - name: pdfmerger
+        image: klevakoz96/pdfmerger:latest
+        volumeMounts:
+        - mountPath: /pdfer
+          name: pdf      
+      volumes:
+        - name: pdf
+          nfs:
+            path: /mnt/RUST/K3S/pdf
+            server: 10.10.0.105

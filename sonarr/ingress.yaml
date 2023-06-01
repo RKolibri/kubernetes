@@ -17,5 +17,6 @@ spec:
           port: 8989
       middlewares:
         - name: default-headers
+        # - name : my-traefik-themepark
   tls:
     secretName: k3s-resulaj-eu-production-tls

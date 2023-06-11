@@ -29,5 +29,5 @@ spec:
       volumes:
         - name: vol-gfovf
           nfs:
-            path: /mnt/RUST/K3S/nginx
-            server: 10.10.0.105
+            path: /volume1/k3s/nginx
+            server: 10.10.0.16

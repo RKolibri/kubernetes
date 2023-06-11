@@ -29,5 +29,5 @@ spec:
       volumes:
         - name: vw-data  
           nfs:
-            path: /mnt/RUST/K3S/vw
-            server: 10.10.0.105
+            path: /volume1/k3s/vw
+            server: 10.10.0.16

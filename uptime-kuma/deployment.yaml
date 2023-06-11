@@ -38,6 +38,6 @@ spec:
       volumes:
         - name: uptime
           nfs:
-            path: /mnt/RUST/K3S/kuma
-            server: 10.10.0.105
+            path: /volume1/k3s/kuma
+            server: 10.10.0.16
         
